@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>박정희 · 최지우 결혼합니다</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="hero-eyebrow en">The Wedding Day</div>
+    <div class="hero-date">2027. 03. 13. SAT · 오후 1시</div>
+    <h1 class="hero-names en">
+      박정희
+      <br>♡<br>
+      최지우
+    </h1>
+    <p class="hero-sub">저희 두 사람, 함께 걷는 길에<br>가장 소중한 분들을 초대합니다</p>
+    <div class="scroll-hint">
+      <span>SCROLL</span>
+      <span class="stem"></span>
+    </div>
+  </div>
+
+  <section>
+    <div class="kicker reveal">Invitation</div>
+    <div class="divider reveal"></div>
+    <p class="letter reveal">
+      오랜 시간 서로의 곁에서<br>
+      계절을 함께 보낸 두 사람이<br>
+      이제 하나의 이름으로<br>
+      새로운 길을 걸으려 합니다.<br><br>
+      바쁘신 걸음 잠시 멈추시고<br>
+      저희의 시작을 <b>따뜻한 축복</b>으로<br>
+      함께해 주시면 감사하겠습니다.
+    </p>
+    <div class="parents reveal">
+      <div class="side">
+        <div class="who">신랑측</div>
+        박종열 · 김미자의 아들<br><b style="color:var(--ink)">박정희</b>
+      </div>
+      <div class="side">
+        <div class="who">신부측</div>
+        최정태 · 김은숙의 딸<br><b style="color:var(--ink)">최지우</b>
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0;">
+    <div class="kicker reveal">Gallery</div>
+    <div class="divider reveal"></div>
+    <button class="gallery-arrow prew" id="galleryprew" aria-label="이전 사진"></button>
+    <div class="gallery-slider reveal" id="gallerySlider">
+      <div class="gph"><img src="asd.png" alt=""></div>
+      <div class="gph"><img src="fgs.png" alt=""></div>
+      <div class="gph"><img src="wer.png" alt=""></div>
+    </div>
+    <button class="gallery-arrow next" id="galleryNext" aria-label="다음 사진"></button>
+  </section>
+
+  <section>
+    <div class="kicker reveal">When</div>
+    <div class="divider reveal"></div>
+    <div class="when-date reveal en">March 13, 2027</div>
+    <div class="when-day reveal">토요일 오후 1시 · 엔팰리스웨딩컨벤션 1층</div>
+    <div class="cal reveal">
+      <div class="cal-head">
+        <span>2027년 3월</span>
+        <span>SAT</span>
+      </div>
+      <div class="cal-grid">
+        <span class="sun">일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
+        <span></span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span>
+        <span class="sun">7</span><span>8</span><span>9</span><span>10</span><span>11</span>13</span><span class="dday"><span>13</span></span>
+        <span class="sun">14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span>
+      </div>
+    </div>
+    <div class="countdown reveal" id="countdown">
+      결혼식까지 남은 날 <span class="num en">-</span> 일
+    </div>
+  </section>
+
+
+  <section>
+    <div class="kicker reveal">Location</div>
+    <div class="divider reveal"></div>
+    <div class="venue-name reveal">엔팰리스웨딩컨벤션1층</div>
+    <div class="venue-addr reveal">경기 평택시 경기대로 721 엔팰리스웨딩컨벤션<br>0507-1348-6500</div>
+    <div class="map-box reveal">API 연동해서 지도 넣을 부분</div>
+    <div class="map-links reveal">
+      <a href="https://naver.me/xKEqr11L" target="_blank">네이버지도</a>
+      <a href="https://map.kakao.com/?urlX=515921.00000000244&urlY=976303.0000000016&urlLevel=3&itemId=2077737631&q=%EC%97%94%20%ED%8C%B0%EB%A6%AC%EC%8A%A4%20%EC%BB%A8%EB%B2%A4%EC%85%98&srcid=2077737631&map_type=TYPE_MAP" target="_blank">카카오맵</a>
+      <a href="https://maps.app.goo.gl/m2hNBfNKcJpz4ZYr8" target="_blank">구글지도</a>
+    </div>
+    <div class="transit reveal">
+      <div><span class="t-label">지하철</span>1호선 평택지제역 1번 출구 도보 10분</div>
+      <div><span class="t-label">주차</span>건물 앞</div>
+    </div>
+  </section>
+
+
+  <section>
+    <div class="kicker reveal">Gift</div>
+    <div class="divider reveal"></div>
+    <div class="gift-toggle reveal">
+      <button class="gift-btn" onclick="toggleGift()">마음 전하실 곳 보기</button>
+      <div class="gift-panel" id="giftPanel">
+        <div class="acc-item">
+          <div class="acc-who">신랑측</div>
+          <div class="acc-num">
+            <span>은행계좌 132456786 박정희</span>
+            <button class="copy-btn" onclick="copyNum(this,'132456786')">복사</button>
+          </div>
+        </div>
+        <div class="acc-item">
+          <div class="acc-who">신부측</div>
+          <div class="acc-num">
+            <span>국민은행 595102-01-157528 최지우</span>
+            <button class="copy-btn" onclick="copyNum(this,'59510201157528')">복사</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="kicker reveal">Guestbook</div>
+    <div class="divider reveal"></div>
+    <p class="rsvp-desc reveal">따뜻한 축하 한마디<br>남겨주시면 큰 힘이 됩니다</p>
+
+    <form class="rsvp-form reveal" id="gbForm" onsubmit="submitGuestbook(event)">
+      <div class="field">
+        <label>성함</label>
+        <input type="text" id="gbName" required placeholder="이름을 입력해주세요">
+      </div>
+      <div class="field">
+        <label>축하 메시지</label>
+        <textarea id="gbMessage" required placeholder="두 사람에게 전하고 싶은 말을 남겨주세요" rows="4"></textarea>
+      </div>
+      <button type="submit" class="rsvp-submit">메시지 남기기</button>
+    </form>
+
+    <div class="gb-list reveal" id="gbList"></div>
+    <p class="gb-empty" id="gbEmpty">아직 남겨진 메시지가 없어요.<br>첫 축하를 전해주세요 🤍</p>
+  </section>
+
+  <footer>
+    <div class="footer-mark en">Junghee ♡ Jiwoo</div>
+    <div class="footer-note">
+      2027. 03. 13. 토요일 오후 1시<br>
+      엔팰리스 1층<br><br>
+      &copy; 2027
+    </div>
+  </footer>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
