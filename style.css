@@ -8,6 +8,7 @@
   --bg: #fbf6ee;
   --bg-deep: #f3e9d8;
   --card: rgba(255,255,255,0.55);
+  color-scheme: light;
 }
 *{ margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 html,body{ background:var(--bg); }

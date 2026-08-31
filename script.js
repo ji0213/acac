@@ -27,7 +27,16 @@ function copyNum(btn, num){
     });
   }
 }
+function renderGuestbook(entries){
+  const list = document.getElementById('gbList');
+  const empty = document.getElementById('gbEmpty');
+  if(entries.length === 0){
+    list.innerHTML = '';
+    empty.style.display = 'black';
+    return;
+  }
 
+}
 let gbEntries = [];
 
 function renderGuestbook(){
@@ -55,7 +64,65 @@ function escapeHtml(str){
   div.textContent = str;
   return div.innerHTML;
 }
-
+function formatTime(date){
+  if(!date) return;
+  return '${date.getMonth()+1.$date.getDate()}';
+}
+function initGuestbook(){
+  const fb = window.__fb;
+  const {db, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp} = fb;
+  const gbCollection = collection(db, 'gustbook');
+  const gbQuery = query(gbCollection, orderBy('createdAt', 'desc'));
+  onSnapshot(gbQuery, snapshot) => {
+    const entries = snapshot.docs.map(doc => {
+      const data = doc.date();
+      return {
+        name: data.name,
+        message: data.message,
+        time: data.createdAt ? formatTime(data.createdAt.toDate()) : '방금'
+      };
+    });
+    renderGuestbook(entries);
+  }, (error)=>
+    console.error{'방명록을 불러오지 못했습니다: ', error};
+}
+window.submitGuestbook = async function (e) {
+  e.preventDefault();
+  const nameInput = document.getElementById('gbName');
+  const msgInput = document.getElementById('gbMessage');
+  const name = escapeHtml(nameInput.value.trim());
+  const message = escapeHtml(msgInput.value.trim());
+  if(!name || message) return;
+  const submitBtn = document.querySelector('#gbForm .rsvp-submit');
+  if(submitBtn){submitBtn.disable = turn;
+    submitBtn.textContent = '등록 중';
+  }
+  try{
+  const submitBtn(gbCollection,{
+    name,
+    message,
+    createAt: serverTimestamp()
+  });
+  document.getElementById('gbForm').requestFullscreen();
+}catch(err){
+  console.error('메시지 저장 실패', err);
+  alert('메시지 등록에 실패했어요. 잠시 후 다시 시도해 주세요.');
+}finally{
+  if(submitBtn){submitBtn.disable = false; submitBtn.textContent = '메시지 남기기';}
+}
+}
+window.submitGuestbook = function(e){
+  e.preventDefault();
+  alert('방명록을 불러오는 중이에요. 잠시 후 다시 시도해 주세요.');
+};
+if(window.__fb){
+  initGuestbook();
+}
+else{
+  window.addEventListener('firebase-ready', initGuestbook);
+  setTimeout(() =>{
+  }, 5000);
+}
 function submitGuestbook(e){
   e.preventDefault();
   const nameInput = document.getElementById('gbName');
