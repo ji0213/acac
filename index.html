@@ -11,27 +11,28 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 
-<!-- Firebase SDK -->
+
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
   import {
     getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp
   } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 
-  // ⚠️ 여기에 Firebase 콘솔에서 복사한 본인의 firebaseConfig 값을 넣으세요
+
   const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_PROJECT.firebaseapp.com",
-    projectId: "YOUR_PROJECT",
-    storageBucket: "YOUR_PROJECT.appspot.com",
-    messagingSenderId: "YOUR_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyBhBX-yCNlbX0NYiDss1-pbQunRFU4_QPQ",
+    authDomain: "test123-52b4e.firebaseapp.com",
+    projectId: "test123-52b4e",
+    storageBucket: "test123-52b4e.firebasestorage.app",
+    messagingSenderId: "278112375993",
+    appId: "1:278112375993:web:c6c51c9ae064d391743768",
+    measurementId: "G-LK5KJG27DP"
   };
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
 
-  // 전역에서 쓸 수 있도록 window에 노출
+
   window.__fb = { db, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp };
   window.dispatchEvent(new Event('firebase-ready'));
 </script>
@@ -39,7 +40,7 @@
 <body>
 <div class="wrap">
 
-  <!-- HERO -->
+
   <div class="hero">
     <div class="hero-eyebrow en">The Wedding Day</div>
     <div class="hero-date">2027. 03. 13. SAT · 오후 1시</div>
@@ -55,7 +56,6 @@
     </div>
   </div>
 
-  <!-- INTRO -->
   <section>
     <div class="kicker reveal">Invitation</div>
     <div class="divider reveal"></div>
@@ -80,7 +80,7 @@
     </div>
   </section>
 
-  <!-- GALLERY -->
+
   <section style="padding-top:0;">
     <div class="kicker reveal">Gallery</div>
     <div class="divider reveal"></div>
@@ -118,21 +118,19 @@
     </div>
   </section>
 
-  <!-- LOCATION -->
   <section>
     <div class="kicker reveal">Location</div>
     <div class="divider reveal"></div>
     <div class="venue-name reveal">더그랜드컨벤션 · 3층 그랜드홀</div>
-    <div class="venue-addr reveal">서울특별시 강남구 테헤란로 123<br>02-1234-5678</div>
-    <div class="map-box reveal">지도 영역 (지도 API 연동)</div>
+    <div class="venue-addr reveal">경기 평택시 경기대로 721 엔팰리스웨딩컨벤션<br>0507-1348-6500</div>
+    <div class="map-box reveal">지도 넣을 부분</div>
     <div class="map-links reveal">
-      <a href="https://map.naver.com" target="_blank">네이버지도</a>
-      <a href="https://map.kakao.com" target="_blank">카카오맵</a>
-      <a href="https://maps.google.com" target="_blank">구글지도</a>
+      <a href="https://naver.me/xKEqr11L" target="_blank">네이버지도</a>
+      <a href="https://place.map.kakao.com/2077737631" target="_blank">카카오맵</a>
+      <a href="https://maps.app.goo.gl/SfdtYwyUbfXjE5eD6" target="_blank"></iframe>">구글지도</a>
     </div>
     <div class="transit reveal">
-      <div><span class="t-label">지하철</span>2호선 강남역 3번 출구 도보 5분</div>
-      <div><span class="t-label">버스</span>강남역 정류장 하차 (146, 401, 542)</div>
+      <div><span class="t-label">지하철</span>평택지제역 1번출구 도보 10분</div>
       <div><span class="t-label">주차</span>건물 지하 1~3층, 2시간 무료</div>
     </div>
   </section>
@@ -147,14 +145,14 @@
         <div class="acc-item">
           <div class="acc-who">신랑측</div>
           <div class="acc-num">
-            <span>카카오뱅크 3333-01-1234567 박종열</span>
+            <span>12345678 박정희</span>
             <button class="copy-btn" onclick="copyNum(this,'3333011234567')">복사</button>
           </div>
         </div>
         <div class="acc-item">
           <div class="acc-who">신부측</div>
           <div class="acc-num">
-            <span>국민은행 123456-04-789012 김은숙</span>
+            <span>국민은행 123456-04-789012 최지우</span>
             <button class="copy-btn" onclick="copyNum(this,'123456047890012')">복사</button>
           </div>
         </div>
