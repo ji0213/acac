@@ -28,6 +28,7 @@ body{
     radial-gradient(ellipse at 50% 0%, var(--bg-deep) 0%, var(--bg) 60%);
 }
 
+/* ---------- HERO ---------- */
 .hero{
   height:100vh;
   display:flex;
@@ -112,6 +113,7 @@ body{
   50%{ opacity:1; }
 }
 
+/* ---------- SECTION shared ---------- */
 section{
   padding:100px 28px;
   position:relative;
@@ -142,7 +144,7 @@ section{
   opacity:0.6;
 }
 
-
+/* ---------- INTRO / LETTER ---------- */
 .letter{
   text-align:center;
   font-size:15.5px;
@@ -170,92 +172,83 @@ section{
   margin-bottom:6px;
 }
 
-
+/* ---------- GALLERY ---------- */
 .gallery-wrap{
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.gallery-warp::before{
-  left: 0;
-  background: linear-gradient(to right, rgba(0, 0, 0, 0.28), transparent);
-}
-.gallery-wrap::after{
-  right: 0;
-  background: linear-gradient(to left, rgba(0, 0, 0, 0.28), transparent);
+  display:flex;
+  align-items:center;
+  gap:6px;
 }
 .gallery-slider{
-  flex: 1;
-  min-width: 0;
+  flex:1;
+  min-width:0;
   display:flex;
-  overflow-x: auto;
+  overflow-x:auto;
   scroll-snap-type:x mandatory;
   gap:10px;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  padding-bottom: 2px;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+  padding-bottom:2px;
 }
-.gallery-slider::-webkit-scrollbar{display: none;}
+.gallery-slider::-webkit-scrollbar{ display:none; }
 .gallery-arrow{
-  flex: 0 0 auto;
-  width: 22px;
-  background: none;
-  box-shadow: none;
-  color: var(--apricot-soft);
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 26px;
-  font-weight: 600;
-  line-height: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 3;
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  flex:0 0 auto;
+  width:22px;
+  border:none;
+  background:none;
+  box-shadow:none;
+  color:var(--apricot-soft);
+  font-family:'Cormorant Garamond', serif;
+  font-size:26px;
+  font-weight:600;
+  line-height:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  padding:8px 0;
+  transition:transform 0.2s ease, color 0.2s ease;
 }
-.gallery-arrow.prev{left: 6px;}
-.gallery-arrow.next{right: 6px;}
-.gallery-arrow.active{
-  color: var(--apricot);
-  transform: translateY(-50%) scale(0.9);
+.gallery-arrow:active{
+  color:var(--apricot);
+  transform:scale(0.85);
 }
 .slide{
-  flex: 0 0 90%;
-  scroll-snap-align: center;
-  aspect-ratio: 4/5;
-  min-width: 0;
-  min-height: 0;
-  border-radius: 2px;
-  overflow: hidden;
-  background: linear-gradient(155deg, #f0e4cf,#c8d8ba);
+  flex:0 0 90%;
+  scroll-snap-align:center;
+  aspect-ratio:4/5;
+  min-width:0;
+  min-height:0;
+  border-radius:2px;
+  overflow:hidden;
+  background:linear-gradient(155deg,#f0e4cf,#e8d8ba);
 }
 .slide img{
-  width: 100% !important;
-  height: 100% !important;
-  min-width: 0;
-  min-height: 0;
-  object-fit: cover;
-  display: block;
+  width:100% !important;
+  height:100% !important;
+  min-width:0;
+  min-height:0;
+  object-fit:cover;
+  display:block;
 }
 .gallery-dots{
-  display: flex;
-  justify-content: center;
-  gap: 6px;
-  margin-top: 16px;
+  display:flex;
+  justify-content:center;
+  gap:6px;
+  margin-top:16px;
 }
-.gallery-dots.dot{
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(74, 65, 0, 2);
-  transition: background 0.25s ease, transform 0.25s ease;
+.gallery-dots .dot{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:rgba(74,65,55,0.2);
+  transition:background 0.25s ease, transform 0.25s ease;
 }
-.gallery-dots.dot.active{
-  background: var(--apricot);
-  transform: scale(1,3);
+.gallery-dots .dot.active{
+  background:var(--apricot);
+  transform:scale(1.3);
 }
 
-
+/* ---------- CALENDAR ---------- */
 .when-date{
   text-align:center;
   font-family:'Cormorant Garamond', serif;
@@ -323,6 +316,7 @@ section{
   margin-right:6px;
 }
 
+/* ---------- LOCATION ---------- */
 .venue-name{
   text-align:center;
   font-size:18px;
@@ -387,6 +381,8 @@ section{
   width:52px;
 }
 
+
+/* ---------- GIFT ---------- */
 .gift-toggle{
   text-align:center;
 }
@@ -425,7 +421,7 @@ section{
 }
 .copy-btn.copied{ color:var(--apricot); }
 
-
+/* ---------- RSVP ---------- */
 .rsvp-desc{
   text-align:center;
   font-size:13.5px;
@@ -473,7 +469,7 @@ section{
 }
 .rsvp-submit:active{ opacity:0.85; }
 
-
+/* ---------- GUESTBOOK LIST ---------- */
 .gb-list{
   margin-top:36px;
   display:flex;
@@ -523,7 +519,7 @@ section{
   color:rgba(74,65,55,0.4);
 }
 
-
+/* ---------- FOOTER ---------- */
 footer{
   text-align:center;
   padding:70px 28px 60px;
