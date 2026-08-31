@@ -19,7 +19,7 @@ function toggleGift(){
   document.getElementById('giftPanel').classList.toggle('open');
 }
 
-// copy account number
+
 function copyNum(btn, num){
   if(navigator.clipboard){
     navigator.clipboard.writeText(num).then(()=>{
@@ -90,11 +90,10 @@ window.submitGuestbook = async function(e){
   try{
     await fetch(GB_API_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'text/plain' }, // Apps Script CORS 프리플라이트 회피용
+      headers: { 'Content-Type': 'text/plain' }, 
       body: JSON.stringify({ name, message })
     });
     document.getElementById('gbForm').reset();
-    // Apps Script 응답이 살짝 지연될 수 있어 약간의 딜레이 후 재조회
     setTimeout(loadGuestbook, 600);
   }catch(err){
     console.error('메시지 저장 실패:', err);
@@ -121,7 +120,7 @@ loadGuestbook();
   const dots = dotsWrap.querySelectorAll('.dot');
 
   function updateActiveDot(){
-    const slideWidth = slides[0].getBoundingClientRect().width + 10; // gap included
+    const slideWidth = slides[0].getBoundingClientRect().width + 10; 
     const index = Math.round(slider.scrollLeft / slideWidth);
     dots.forEach((d, i) => d.classList.toggle('active', i === index));
   }
