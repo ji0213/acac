@@ -1,3 +1,4 @@
+
 const els = document.querySelectorAll('.reveal');
 const io = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{
@@ -13,10 +14,12 @@ els.forEach(el=>io.observe(el));
   document.querySelector('#countdown .num').textContent = diff > 0 ? diff : 'D-Day';
 })();
 
+
 function toggleGift(){
   document.getElementById('giftPanel').classList.toggle('open');
 }
 
+// copy account number
 function copyNum(btn, num){
   if(navigator.clipboard){
     navigator.clipboard.writeText(num).then(()=>{
@@ -27,28 +30,18 @@ function copyNum(btn, num){
     });
   }
 }
+
+
 function renderGuestbook(entries){
   const list = document.getElementById('gbList');
   const empty = document.getElementById('gbEmpty');
-  if(entries.length === 0){
-    list.innerHTML = '';
-    empty.style.display = 'black';
-    return;
-  }
-
-}
-let gbEntries = [];
-
-function renderGuestbook(){
-  const list = document.getElementById('gbList');
-  const empty = document.getElementById('gbEmpty');
-  if(gbEntries.length === 0){
+  if(!entries || entries.length === 0){
     list.innerHTML = '';
     empty.style.display = 'block';
     return;
   }
   empty.style.display = 'none';
-  list.innerHTML = gbEntries.map(entry => `
+  list.innerHTML = entries.map(entry => `
     <div class="gb-card">
       <div class="gb-card-head">
         <span class="gb-card-name">${entry.name}</span>
@@ -64,66 +57,21 @@ function escapeHtml(str){
   div.textContent = str;
   return div.innerHTML;
 }
-function formatTime(date){
-  if(!date) return;
-  return '${date.getMonth()+1.$date.getDate()}';
-}
-function initGuestbook(){
-  const fb = window.__fb;
-  const {db, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp} = fb;
-  const gbCollection = collection(db, 'gustbook');
-  const gbQuery = query(gbCollection, orderBy('createdAt', 'desc'));
-  onSnapshot(gbQuery, snapshot) => {
-    const entries = snapshot.docs.map(doc => {
-      const data = doc.date();
-      return {
-        name: data.name,
-        message: data.message,
-        time: data.createdAt ? formatTime(data.createdAt.toDate()) : '방금'
-      };
-    });
-    renderGuestbook(entries);
-  }, (error)=>
-    console.error{'방명록을 불러오지 못했습니다: ', error};
-}
-window.submitGuestbook = async function (e) {
-  e.preventDefault();
-  const nameInput = document.getElementById('gbName');
-  const msgInput = document.getElementById('gbMessage');
-  const name = escapeHtml(nameInput.value.trim());
-  const message = escapeHtml(msgInput.value.trim());
-  if(!name || message) return;
-  const submitBtn = document.querySelector('#gbForm .rsvp-submit');
-  if(submitBtn){submitBtn.disable = turn;
-    submitBtn.textContent = '등록 중';
-  }
+
+const GB_API_URL = window.__GUESTBOOK_API_URL || '';
+
+async function loadGuestbook(){
+  if(!GB_API_URL) return;
   try{
-  const submitBtn(gbCollection,{
-    name,
-    message,
-    createAt: serverTimestamp()
-  });
-  document.getElementById('gbForm').requestFullscreen();
-}catch(err){
-  console.error('메시지 저장 실패', err);
-  alert('메시지 등록에 실패했어요. 잠시 후 다시 시도해 주세요.');
-}finally{
-  if(submitBtn){submitBtn.disable = false; submitBtn.textContent = '메시지 남기기';}
+    const res = await fetch(GB_API_URL);
+    const entries = await res.json();
+    renderGuestbook(entries);
+  }catch(err){
+    console.error('방명록을 불러오지 못했습니다:', err);
+  }
 }
-}
-window.submitGuestbook = function(e){
-  e.preventDefault();
-  alert('방명록을 불러오는 중이에요. 잠시 후 다시 시도해 주세요.');
-};
-if(window.__fb){
-  initGuestbook();
-}
-else{
-  window.addEventListener('firebase-ready', initGuestbook);
-  setTimeout(() =>{
-  }, 5000);
-}
-function submitGuestbook(e){
+
+window.submitGuestbook = async function(e){
   e.preventDefault();
   const nameInput = document.getElementById('gbName');
   const msgInput = document.getElementById('gbMessage');
@@ -131,46 +79,70 @@ function submitGuestbook(e){
   const message = escapeHtml(msgInput.value.trim());
   if(!name || !message) return;
 
-  const now = new Date();
-  const time = `${now.getMonth()+1}.${now.getDate()}`;
+  if(!GB_API_URL){
+    alert('방명록 연동이 아직 설정되지 않았어요.');
+    return;
+  }
 
-  gbEntries.unshift({ name, message, time });
-  renderGuestbook();
-  document.getElementById('gbForm').requestFullscreen();
-}
-renderGuestbook();
+  const submitBtn = document.querySelector('#gbForm .rsvp-submit');
+  if(submitBtn){ submitBtn.disabled = true; submitBtn.textContent = '전달 중...'; }
+
+  try{
+    await fetch(GB_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' }, // Apps Script CORS 프리플라이트 회피용
+      body: JSON.stringify({ name, message })
+    });
+    document.getElementById('gbForm').reset();
+    // Apps Script 응답이 살짝 지연될 수 있어 약간의 딜레이 후 재조회
+    setTimeout(loadGuestbook, 600);
+  }catch(err){
+    console.error('메시지 저장 실패:', err);
+    alert('메시지 전송에 실패했어요. 잠시 후 다시 시도해주세요.');
+  }finally{
+    if(submitBtn){ submitBtn.disabled = false; submitBtn.textContent = '메시지 남기기'; }
+  }
+};
+
+loadGuestbook();
+
 
 (function(){
-    const silder = document.getElementById('gallerySlider');
-    const dotswrap = document.getElementById('galleryDots');
-    if(!silder || !dotswrap)return;
-    const slides = slider.querySelectorAll('.slide');
-    slides.forEach((_,i)=>{
-        const dot =document.createElement('span');
-        dot.className = 'dot' + (i === 0 ? ' active' :'');
-        dotsWrap.appendChild(dot);
-        });
-        const doots =dotsWrap.querySelectorALL('.dot');
-            function updateActiveDot(){
-                const slideWidth = sides[0].getBoundingClienRect().width + 10;
-                const index = Math.round(slider.scrollLeft / slidewidth);
-                dotswrap.forEach((d,i) => d.classList.toggle('active', i===index));
-            }
-            let ticking = fasle;
-            slider.addEventListener('scroll',()=>{
-                if(!ticking){
-                    requestAnimationFrame(()=>{updateActiveDot();ticking = false;});
-                    ticking = Trun;
-                }
-            });
-        const prevBtn = document.getElementById('galleryPrev');
-        const nextBtn = document.getElementById('gallerynext');
-        function goTo(delte){
-            const slideWidth = sides[0].getBoundingClienRect().width + 10;
-            const index = Math.round(slider.scrollLeft / slidewidth);
-            const target = Math.max(0, Math.min(slides.length -1, current + delte));
-            slider.scrollTo({left: target * slider.scrollLeft, behavior: 'smooth'});
-        }
-        if(prevBtn) prevBtn.addEventListener('click', () => goTo(-1));
-        if(nextBtn) nextBtn.addEventListener('click', () => goTo(1));
+  const slider = document.getElementById('gallerySlider');
+  const dotsWrap = document.getElementById('galleryDots');
+  if(!slider || !dotsWrap) return;
+
+  const slides = slider.querySelectorAll('.slide');
+  slides.forEach((_, i) => {
+    const dot = document.createElement('span');
+    dot.className = 'dot' + (i === 0 ? ' active' : '');
+    dotsWrap.appendChild(dot);
+  });
+  const dots = dotsWrap.querySelectorAll('.dot');
+
+  function updateActiveDot(){
+    const slideWidth = slides[0].getBoundingClientRect().width + 10; // gap included
+    const index = Math.round(slider.scrollLeft / slideWidth);
+    dots.forEach((d, i) => d.classList.toggle('active', i === index));
+  }
+
+  let ticking = false;
+  slider.addEventListener('scroll', () => {
+    if(!ticking){
+      requestAnimationFrame(() => { updateActiveDot(); ticking = false; });
+      ticking = true;
+    }
+  });
+
+
+  const prevBtn = document.getElementById('galleryPrev');
+  const nextBtn = document.getElementById('galleryNext');
+  function goTo(delta){
+    const slideWidth = slides[0].getBoundingClientRect().width + 10;
+    const current = Math.round(slider.scrollLeft / slideWidth);
+    const target = Math.max(0, Math.min(slides.length - 1, current + delta));
+    slider.scrollTo({ left: target * slideWidth, behavior:'smooth' });
+  }
+  if(prevBtn) prevBtn.addEventListener('click', () => goTo(-1));
+  if(nextBtn) nextBtn.addEventListener('click', () => goTo(1));
 })();

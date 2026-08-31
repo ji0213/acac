@@ -10,32 +10,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-
-
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-  import {
-    getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp
-  } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
-
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyBhBX-yCNlbX0NYiDss1-pbQunRFU4_QPQ",
-    authDomain: "test123-52b4e.firebaseapp.com",
-    projectId: "test123-52b4e",
-    storageBucket: "test123-52b4e.firebasestorage.app",
-    messagingSenderId: "278112375993",
-    appId: "1:278112375993:web:c6c51c9ae064d391743768",
-    measurementId: "G-LK5KJG27DP"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-
-  window.__fb = { db, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp };
-  window.dispatchEvent(new Event('firebase-ready'));
-</script>
 </head>
 <body>
 <div class="wrap">
@@ -56,6 +30,7 @@
     </div>
   </div>
 
+ 
   <section>
     <div class="kicker reveal">Invitation</div>
     <div class="divider reveal"></div>
@@ -80,7 +55,6 @@
     </div>
   </section>
 
-
   <section style="padding-top:0;">
     <div class="kicker reveal">Gallery</div>
     <div class="divider reveal"></div>
@@ -96,12 +70,12 @@
     <div class="gallery-dots" id="galleryDots"></div>
   </section>
 
-  <!-- CALENDAR -->
   <section>
     <div class="kicker reveal">When</div>
     <div class="divider reveal"></div>
     <div class="when-date reveal en">March 13, 2027</div>
-    <div class="when-day reveal">토요일 오후 1시 · 그랜드홀 3층</div>
+    <div class="when-day reveal">토요일 오후 1시 · 엔팰리스웨딩컨벤션 1층
+    </div>
     <div class="cal reveal">
       <div class="cal-head">
         <span>2027년 3월</span>
@@ -121,7 +95,7 @@
   <section>
     <div class="kicker reveal">Location</div>
     <div class="divider reveal"></div>
-    <div class="venue-name reveal">더그랜드컨벤션 · 3층 그랜드홀</div>
+    <div class="venue-name reveal">엔팰리스웨딩컨벤션 1층</div>
     <div class="venue-addr reveal">경기 평택시 경기대로 721 엔팰리스웨딩컨벤션<br>0507-1348-6500</div>
     <div class="map-box reveal">지도 넣을 부분</div>
     <div class="map-links reveal">
@@ -130,12 +104,11 @@
       <a href="https://maps.app.goo.gl/SfdtYwyUbfXjE5eD6" target="_blank"></iframe>">구글지도</a>
     </div>
     <div class="transit reveal">
-      <div><span class="t-label">지하철</span>평택지제역 1번출구 도보 10분</div>
-      <div><span class="t-label">주차</span>건물 지하 1~3층, 2시간 무료</div>
+      <div><span class="t-label">지하철</span>평택지제역 1번 출구 도보 10분</div>
+      <div><span class="t-label">주차</span>건물 지상주차장</div>
     </div>
   </section>
 
-  <!-- GIFT -->
   <section>
     <div class="kicker reveal">Gift</div>
     <div class="divider reveal"></div>
@@ -145,8 +118,8 @@
         <div class="acc-item">
           <div class="acc-who">신랑측</div>
           <div class="acc-num">
-            <span>12345678 박정희</span>
-            <button class="copy-btn" onclick="copyNum(this,'3333011234567')">복사</button>
+            <span>123456789 박정희</span>
+            <button class="copy-btn" onclick="copyNum(this,'123456789)">복사</button>
           </div>
         </div>
         <div class="acc-item">
@@ -160,7 +133,6 @@
     </div>
   </section>
 
-  <!-- GUESTBOOK -->
   <section>
     <div class="kicker reveal">Guestbook</div>
     <div class="divider reveal"></div>
@@ -186,12 +158,16 @@
     <div class="footer-mark en">Jeong-hui &amp; Ji-woo</div>
     <div class="footer-note">
       2027. 03. 13. 토요일 오후 1시<br>
-      더그랜드컨벤션 3층 그랜드홀<br><br>
+      엔팰리스웨딩컨벤션 1층<br><br>
       &copy; 2027
     </div>
   </footer>
 
 </div>
+
+<script>
+  window.__GUESTBOOK_API_URL = 'https://script.google.com/macros/s/AKfycbzqKbwT911QNge_AXFD9NoRMbuxa2cKy6-hldLAxMPlUYryBYSMEd8KMY2OOxp0ux8F7Q/exec';
+</script>
 
 <script src="script.js"></script>
 </body>
