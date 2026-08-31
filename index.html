@@ -4,53 +4,48 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="color-scheme" content="light only">
-<meta name="theme-color" content="#fbf6ee";>
-<title>박정희 · 최지우 결혼합니다</title>
+<meta name="theme-color" content="#fbf6ee">
+<title>정희 · 지우 결혼합니다</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+KR:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+
+<!-- Firebase SDK -->
 <script type="module">
-  // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
   import {
-    getFirestore, collection, addDoc, qurey, orderBy, onSnapshot, serverTimestamp
+    getFirestore, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp
   } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  // ⚠️ 여기에 Firebase 콘솔에서 복사한 본인의 firebaseConfig 값을 넣으세요
   const firebaseConfig = {
-    apiKey: "AIzaSyBhBX-yCNlbX0NYiDss1-pbQunRFU4_QPQ",
-    authDomain: "test123-52b4e.firebaseapp.com",
-    projectId: "test123-52b4e",
-    storageBucket: "test123-52b4e.firebasestorage.app",
-    messagingSenderId: "278112375993",
-    appId: "1:278112375993:web:c6c51c9ae064d391743768",
-    measurementId: "G-LK5KJG27DP"
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT.firebaseapp.com",
+    projectId: "YOUR_PROJECT",
+    storageBucket: "YOUR_PROJECT.appspot.com",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID"
   };
 
-  // Initialize Firebase
   const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-</script>
+  const db = getFirestore(app);
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
+  // 전역에서 쓸 수 있도록 window에 노출
+  window.__fb = { db, collection, addDoc, query, orderBy, onSnapshot, serverTimestamp };
+  window.dispatchEvent(new Event('firebase-ready'));
 </script>
-
 </head>
 <body>
 <div class="wrap">
 
+  <!-- HERO -->
   <div class="hero">
     <div class="hero-eyebrow en">The Wedding Day</div>
     <div class="hero-date">2027. 03. 13. SAT · 오후 1시</div>
     <h1 class="hero-names en">
       박정희
-      <br>♡<br>
+      <span class="amp">&amp;</span>
       최지우
     </h1>
     <p class="hero-sub">저희 두 사람, 함께 걷는 길에<br>가장 소중한 분들을 초대합니다</p>
@@ -60,6 +55,7 @@
     </div>
   </div>
 
+  <!-- INTRO -->
   <section>
     <div class="kicker reveal">Invitation</div>
     <div class="divider reveal"></div>
@@ -75,32 +71,37 @@
     <div class="parents reveal">
       <div class="side">
         <div class="who">신랑측</div>
-        박종열 · 김미자의 아들<br><b style="color:var(--ink)">박정희</b>
+        박종열 · 김미자의 아들<br><b style="color:var(--ink)">정희</b>
       </div>
       <div class="side">
         <div class="who">신부측</div>
-        최정태 · 김은숙의 딸<br><b style="color:var(--ink)">최지우</b>
+        최정태 · 김은숙의 딸<br><b style="color:var(--ink)">지우</b>
       </div>
     </div>
   </section>
 
+  <!-- GALLERY -->
   <section style="padding-top:0;">
     <div class="kicker reveal">Gallery</div>
     <div class="divider reveal"></div>
-    <button class="gallery-arrow prew" id="galleryprew" aria-label="이전 사진"></button>
-    <div class="gallery-slider reveal" id="gallerySlider">
-      <div class="gph"><img src="asd.png" alt=""></div>
-      <div class="gph"><img src="fgs.png" alt=""></div>
-      <div class="gph"><img src="wer.png" alt=""></div>
+    <div class="gallery-wrap reveal">
+      <button class="gallery-arrow prev" id="galleryPrev" aria-label="이전 사진">‹</button>
+      <div class="gallery-slider" id="gallerySlider">
+        <div class="slide"><img src="photo1.jpg" alt=""></div>
+        <div class="slide"><img src="photo2.jpg" alt=""></div>
+        <div class="slide"><img src="photo3.jpg" alt=""></div>
+      </div>
+      <button class="gallery-arrow next" id="galleryNext" aria-label="다음 사진">›</button>
     </div>
-    <button class="gallery-arrow next" id="galleryNext" aria-label="다음 사진"></button>
+    <div class="gallery-dots" id="galleryDots"></div>
   </section>
 
+  <!-- CALENDAR -->
   <section>
     <div class="kicker reveal">When</div>
     <div class="divider reveal"></div>
     <div class="when-date reveal en">March 13, 2027</div>
-    <div class="when-day reveal">토요일 오후 1시 · 엔팰리스웨딩컨벤션 1층</div>
+    <div class="when-day reveal">토요일 오후 1시 · 그랜드홀 3층</div>
     <div class="cal reveal">
       <div class="cal-head">
         <span>2027년 3월</span>
@@ -109,34 +110,34 @@
       <div class="cal-grid">
         <span class="sun">일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span>토</span>
         <span></span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span>
-        <span class="sun">7</span><span>8</span><span>9</span><span>10</span><span>11</span>13</span><span class="dday"><span>13</span></span>
-        <span class="sun">14</span><span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span>
+        <span class="sun">7</span><span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span class="dday"><span>13</span></span>
       </div>
     </div>
     <div class="countdown reveal" id="countdown">
-      결혼식까지 남은 날 <span class="num en">-</span> 일
+      <span class="num en">-</span>결혼식까지 남은 날
     </div>
   </section>
 
-
+  <!-- LOCATION -->
   <section>
     <div class="kicker reveal">Location</div>
     <div class="divider reveal"></div>
-    <div class="venue-name reveal">엔팰리스웨딩컨벤션1층</div>
-    <div class="venue-addr reveal">경기 평택시 경기대로 721 엔팰리스웨딩컨벤션<br>0507-1348-6500</div>
-    <div class="map-box reveal">API 연동해서 지도 넣을 부분</div>
+    <div class="venue-name reveal">더그랜드컨벤션 · 3층 그랜드홀</div>
+    <div class="venue-addr reveal">서울특별시 강남구 테헤란로 123<br>02-1234-5678</div>
+    <div class="map-box reveal">지도 영역 (지도 API 연동)</div>
     <div class="map-links reveal">
-      <a href="https://naver.me/xKEqr11L" target="_blank">네이버지도</a>
-      <a href="https://map.kakao.com/?urlX=515921.00000000244&urlY=976303.0000000016&urlLevel=3&itemId=2077737631&q=%EC%97%94%20%ED%8C%B0%EB%A6%AC%EC%8A%A4%20%EC%BB%A8%EB%B2%A4%EC%85%98&srcid=2077737631&map_type=TYPE_MAP" target="_blank">카카오맵</a>
-      <a href="https://maps.app.goo.gl/m2hNBfNKcJpz4ZYr8" target="_blank">구글지도</a>
+      <a href="https://map.naver.com" target="_blank">네이버지도</a>
+      <a href="https://map.kakao.com" target="_blank">카카오맵</a>
+      <a href="https://maps.google.com" target="_blank">구글지도</a>
     </div>
     <div class="transit reveal">
-      <div><span class="t-label">지하철</span>1호선 평택지제역 1번 출구 도보 10분</div>
-      <div><span class="t-label">주차</span>건물 앞</div>
+      <div><span class="t-label">지하철</span>2호선 강남역 3번 출구 도보 5분</div>
+      <div><span class="t-label">버스</span>강남역 정류장 하차 (146, 401, 542)</div>
+      <div><span class="t-label">주차</span>건물 지하 1~3층, 2시간 무료</div>
     </div>
   </section>
 
-
+  <!-- GIFT -->
   <section>
     <div class="kicker reveal">Gift</div>
     <div class="divider reveal"></div>
@@ -146,21 +147,22 @@
         <div class="acc-item">
           <div class="acc-who">신랑측</div>
           <div class="acc-num">
-            <span>은행계좌 132456786 박정희</span>
-            <button class="copy-btn" onclick="copyNum(this,'132456786')">복사</button>
+            <span>카카오뱅크 3333-01-1234567 박종열</span>
+            <button class="copy-btn" onclick="copyNum(this,'3333011234567')">복사</button>
           </div>
         </div>
         <div class="acc-item">
           <div class="acc-who">신부측</div>
           <div class="acc-num">
-            <span>국민은행 595102-01-157528 최지우</span>
-            <button class="copy-btn" onclick="copyNum(this,'59510201157528')">복사</button>
+            <span>국민은행 123456-04-789012 김은숙</span>
+            <button class="copy-btn" onclick="copyNum(this,'123456047890012')">복사</button>
           </div>
         </div>
       </div>
     </div>
   </section>
 
+  <!-- GUESTBOOK -->
   <section>
     <div class="kicker reveal">Guestbook</div>
     <div class="divider reveal"></div>
@@ -183,10 +185,10 @@
   </section>
 
   <footer>
-    <div class="footer-mark en">Junghee ♡ Jiwoo</div>
+    <div class="footer-mark en">Jeong-hui &amp; Ji-woo</div>
     <div class="footer-note">
       2027. 03. 13. 토요일 오후 1시<br>
-      엔팰리스 1층<br><br>
+      더그랜드컨벤션 3층 그랜드홀<br><br>
       &copy; 2027
     </div>
   </footer>
