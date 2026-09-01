@@ -1,4 +1,3 @@
-
 const els = document.querySelectorAll('.reveal');
 const io = new IntersectionObserver((entries)=>{
   entries.forEach(e=>{
@@ -7,6 +6,7 @@ const io = new IntersectionObserver((entries)=>{
 }, { threshold:0.01 });
 els.forEach(el=>io.observe(el));
 
+
 (function(){
   const target = new Date('2027-03-13T13:00:00');
   const now = new Date();
@@ -14,11 +14,9 @@ els.forEach(el=>io.observe(el));
   document.querySelector('#countdown .num').textContent = diff > 0 ? diff : 'D-Day';
 })();
 
-
 function toggleGift(){
   document.getElementById('giftPanel').classList.toggle('open');
 }
-
 
 function copyNum(btn, num){
   if(navigator.clipboard){
@@ -30,7 +28,6 @@ function copyNum(btn, num){
     });
   }
 }
-
 
 function renderGuestbook(entries){
   const list = document.getElementById('gbList');
@@ -90,10 +87,11 @@ window.submitGuestbook = async function(e){
   try{
     await fetch(GB_API_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'text/plain' }, 
+      headers: { 'Content-Type': 'text/plain' },
       body: JSON.stringify({ name, message })
     });
     document.getElementById('gbForm').reset();
+
     setTimeout(loadGuestbook, 600);
   }catch(err){
     console.error('메시지 저장 실패:', err);
@@ -120,7 +118,7 @@ loadGuestbook();
   const dots = dotsWrap.querySelectorAll('.dot');
 
   function updateActiveDot(){
-    const slideWidth = slides[0].getBoundingClientRect().width + 10; 
+    const slideWidth = slides[0].getBoundingClientRect().width + 10;
     const index = Math.round(slider.scrollLeft / slideWidth);
     dots.forEach((d, i) => d.classList.toggle('active', i === index));
   }
@@ -144,6 +142,15 @@ loadGuestbook();
   }
   if(prevBtn) prevBtn.addEventListener('click', () => goTo(-1));
   if(nextBtn) nextBtn.addEventListener('click', () => goTo(1));
+})();
+
+(function(){
+  const mapBox = document.getElementById('kakaoMap');
+  if(!mapBox) return;
+
+  function showFallback(){
+    mapBox.textContent = '지도를 불러올 수 없어요. 위 주소를 확인해주세요.';
+  }
 
   function waitForKakao(retries){
     if(window.kakao && window.kakao.maps){
@@ -156,31 +163,41 @@ loadGuestbook();
     }
     setTimeout(() => waitForKakao(retries - 1), 300);
   }
+
   function initMap(){
     try{
       window.kakao.maps.load(function(){
         const address = window.__VENUE_ADDRESS || '';
-        const geocoder = new kakao.maps.servers.Geocoder();
+        const geocoder = new kakao.maps.services.Geocoder();
+
         geocoder.addressSearch(address, function(result, status){
-          if(status !== kakao.maps.servers.Status.OK || !result[0]){
+          if(status !== kakao.maps.services.Status.OK || !result[0]){
             showFallback();
             return;
           }
+
           const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-          const map = new kakao.maps.MAP(mapbox, {
+          const map = new kakao.maps.Map(mapBox, {
             center: coords,
             level: 3
           });
-          const infoWindow = new kakao.maps.InfoWindow({
-            content: '<div style="padding:6px 10px; font-size: 12px; white-space:nowrap;"> ${window.__VENUE_NAME || ''} </div>'
+
+          new kakao.maps.Marker({
+            map: map,
+            position: coords
           });
-          infoWindow.open(map, new kakao.maps.marker({map, paosition: coords}));
+
+          const infowindow = new kakao.maps.InfoWindow({
+            content: `<div style="padding:6px 10px;font-size:12px;white-space:nowrap;">${window.__VENUE_NAME || ''}</div>`
+          });
+          infowindow.open(map, new kakao.maps.Marker({ map, position: coords }));
         });
       });
     }catch(err){
-      console.error('카카오맵 초기화 실패:', err);
+      console.warn('카카오맵 초기화 실패:', err);
       showFallback();
     }
   }
+
   waitForKakao(15);
 })();
