@@ -334,6 +334,7 @@ section{
 .map-box{
   height:200px;
   border-radius:4px;
+  overflow: hidden;
   background:
     repeating-linear-gradient(0deg, transparent, transparent 23px, rgba(74,65,55,0.06) 24px),
     repeating-linear-gradient(90deg, transparent, transparent 23px, rgba(74,65,55,0.06) 24px),
