@@ -146,7 +146,7 @@ loadGuestbook();
   if(nextBtn) nextBtn.addEventListener('click', () => goTo(1));
 
   function waitForKakao(retries){
-    if(window.kakao && window.kakao.map){
+    if(window.kakao && window.kakao.maps){
       initMap();
       return;
     }
