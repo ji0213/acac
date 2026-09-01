@@ -267,7 +267,7 @@ loadGuestbook();
     dragging = false;
     const delta = currentX - startX;
     const threshold = widthPx * 0.15;
-    if(delta > threshold && current < lbSlides.length -1){
+    if(delta > threshold && current <lbSlides.length -1){
       current +=1;
     }
     setPosition();
