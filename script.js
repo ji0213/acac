@@ -144,4 +144,43 @@ loadGuestbook();
   }
   if(prevBtn) prevBtn.addEventListener('click', () => goTo(-1));
   if(nextBtn) nextBtn.addEventListener('click', () => goTo(1));
+
+  function waitForKakao(retries){
+    if(window.kakao && window.kakao.map){
+      initMap();
+      return;
+    }
+    if(retries <= 0){
+      showFallback();
+      return;
+    }
+    setTimeout(() => waitForKakao(retries - 1), 300);
+  }
+  function initMap(){
+    try{
+      window.kakao.maps.load(function(){
+        const address = window.__VENUE_ADDRESS || '';
+        const geocoder = new kakao.maps.servers.Geocoder();
+        geocoder.addressSearch(address, function(result, status){
+          if(status !== kakao.maps.servers.Status.OK || !result[0]){
+            showFallback();
+            return;
+          }
+          const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+          const map = new kakao.maps.MAP(mapbox, {
+            center: coords,
+            level: 3
+          });
+          const infoWindow = new kakao.maps.InfoWindow({
+            content: '<div style="padding:6px 10px; font-size: 12px; white-space:nowrap;"> ${window.__VENUE_NAME || ''} </div>'
+          });
+          infoWindow.open(map, new kakao.maps.marker({map, paosition: coords}));
+        });
+      });
+    }catch(err){
+      console.error('카카오맵 초기화 실패:', err);
+      showFallback();
+    }
+  }
+  waitForKakao(15);
 })();
