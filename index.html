@@ -97,7 +97,7 @@
     <div class="divider reveal"></div>
     <div class="venue-name reveal">엔팰리스웨딩컨벤션 1층</div>
     <div class="venue-addr reveal">경기 평택시 경기대로 721 엔팰리스웨딩컨벤션<br>0507-1348-6500</div>
-    <div class="map-box reveal">지도 넣을 부분</div>
+    <div class="map-box reveal"id="kakaomap">지도를 불러오는 중..</div>
     <div class="map-links reveal">
       <a href="https://naver.me/xKEqr11L" target="_blank">네이버지도</a>
       <a href="https://place.map.kakao.com/2077737631" target="_blank">카카오맵</a>
@@ -105,7 +105,7 @@
     </div>
     <div class="transit reveal">
       <div><span class="t-label">지하철</span>평택지제역 1번 출구 도보 10분</div>
-      <div><span class="t-label">주차</span>건물 지상주차장</div>
+      <div><span class="t-label">주차</span>건물내 주차장 이용 가능</div>
     </div>
   </section>
 
@@ -168,7 +168,16 @@
 <script>
   window.__GUESTBOOK_API_URL = 'https://script.google.com/macros/s/AKfycbzqKbwT911QNge_AXFD9NoRMbuxa2cKy6-hldLAxMPlUYryBYSMEd8KMY2OOxp0ux8F7Q/exec';
 </script>
-
+<script>
+  window.__KAKAO_JS_KEY="2fe07a242a9c0d0d443efabf6b81f72d";
+  window.__VENUE_ADDRESS = '경기도 평택시 경기대로 721';
+  window.__VENUE_NAME = '엔팰리스웨딩컨벤션';
+</script>
+<script>
+  src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=2fe07a242a9c0d0d443efabf6b81f72d&autoload=false&librarise=services"
+  onerror="console.warn('카카오맵 SDK 로드 실패')"
+</script>
 <script src="script.js"></script>
+
 </body>
 </html>
