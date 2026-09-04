@@ -276,9 +276,8 @@ loadGuestbook();
   }
   track.addEventListener('touchstart', (e) => onStart(e.touches[0].clientX),{passive:true});
   track.addEventListener('touchmove', (e) => onMove(e.touches[0].clientX),{passive:true});
-  track.addEventListener('thouchend', onEnd);
-
-  track.addEventListener('mousedown', (e) => {preventDefault(); onStart(e.clientX);});
+  track.addEventListener('touchend', onEnd);
+  track.addEventListener('mousedown', (e) => {e.preventDefault(); onStart(e.clientX);});
   window.addEventListener('mousemove', (e) => onMove(e.clientX));
   window.addEventListener('mouseup', onEnd);
 
