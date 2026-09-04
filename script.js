@@ -212,7 +212,7 @@ loadGuestbook();
   lb.innerHTML = `
     <button class="lb-close" aria-label="닫기">&times;</button>
     <div class="lb-track">
-      ${imgs.map(img => `<div class="lb-slide"><img src="&{img.src}" alt=""></div>`).join('')}
+      ${imgs.map(img => `<div class="lb-slide"><img src="${img.src}" alt=""></div>`).join('')}
         </div>
         `;
   document.body.appendChild(lb);
@@ -222,12 +222,12 @@ loadGuestbook();
   let current = 0;
   let startX = 0;
   let currentX = 0;
-  let dragging = 0;
+  let dragging = false;
   let widthPx = 0;
 
   function open(index){
     current = index;
-    lb.classList.remove('open');
+    lb.classList.add('open');
     document.body.style.overflow = 'hidden';
     requestAnimationFrame(() => setPosition(false));
   }
@@ -260,14 +260,16 @@ loadGuestbook();
     if(!dragging) return;
     currentX = x;
     const delta = currentX - startX;
-    track.style.transform = `translateX(${-surrent * widthPx + delta}px)`;
+    track.style.transform = `translateX(${-current * widthPx + delta}px)`;
   }
   function onEnd(){
     if(!dragging) return;
     dragging = false;
     const delta = currentX - startX;
     const threshold = widthPx * 0.15;
-    if(delta > threshold && current <lbSlides.length -1){
+    if(delta > threshold && current > 0){
+      current -=1;
+    }else if(delta < -threshold && current < lbSlides.length -1){
       current +=1;
     }
     setPosition();
@@ -275,9 +277,10 @@ loadGuestbook();
   track.addEventListener('touchstart', (e) => onStart(e.touches[0].clientX),{passive:true});
   track.addEventListener('touchmove', (e) => onMove(e.touches[0].clientX),{passive:true});
   track.addEventListener('thouchend', onEnd);
+
   track.addEventListener('mousedown', (e) => {preventDefault(); onStart(e.clientX);});
-  track.addEventListener('mousemove', (e) => onMove(e.clientX));
-  track.addEventListener('mouseup', onEnd);
+  window.addEventListener('mousemove', (e) => onMove(e.clientX));
+  window.addEventListener('mouseup', onEnd);
 
   window.addEventListener('keydown', (e) =>{
     if(!lb.classList.contains('open'))return;
