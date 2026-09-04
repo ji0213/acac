@@ -244,7 +244,7 @@ loadGuestbook();
     img.style.cursor = 'zoom-in';
     img.addEventListener('click', () => open(i));
   });
-  closeBten.addEventListener('click', close);
+  closeBtn.addEventListener('click', close);
   lb.addEventListener('click', (e) => {
     if(e.target === lb) close();
   });
