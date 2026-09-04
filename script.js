@@ -217,7 +217,7 @@ loadGuestbook();
         `;
   document.body.appendChild(lb);
   const track = lb.querySelector('.lb-track');
-  const lbSlider = lb.querySelectorAll('.lb-slide');
+  const lbSlides = lb.querySelectorAll('.lb-slide');
   const closeBtn = lb.querySelector('.lb-close');
   let current = 0;
   let startX = 0;
